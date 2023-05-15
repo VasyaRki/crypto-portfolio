@@ -2,9 +2,14 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './entity/user.entity';
-import { UsersModule } from './users/users.module';
+import { User } from './users/user.entity';
+import { Cryptocurrency } from './cryptocurrencies/cryptocurrency.entity';
+import { UsersModule } from './users/user.module';
 import { ConfigModule } from '@nestjs/config';
+import { CryptocurrencyModule } from './cryptocurrencies/cryptocurrency.module';
+import { PortfolioService } from './portfolio/portfolio.service';
+import { PortfolioModule } from './portfolio/portfolio.module';
+import { Portfolio } from './portfolio/portfolio.entity';
 
 @Module({
   imports: [
@@ -13,11 +18,13 @@ import { ConfigModule } from '@nestjs/config';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: 'postgres://vfvfomid:De5htLGK5hSLt5F4MJE70XaMjsn7REQv@mouse.db.elephantsql.com/vfvfomid',
-      entities: [],
+      url: process.env.POSTGRES_URL,
+      entities: [User, Cryptocurrency, Portfolio],
       synchronize: true,
     }),
     UsersModule,
+    CryptocurrencyModule,
+    PortfolioModule,
   ],
   controllers: [AppController],
   providers: [AppService],
