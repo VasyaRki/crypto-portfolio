@@ -21,13 +21,16 @@ export class CryptocurrencyController {
   }
 
   @Get(':symbol')
-  getSymbol(@Param() params: any): Promise<Cryptocurrency> {
-    const { symbol } = params;
-    return this.cryptocurrencyService.getOne({symbol});
+  getCryptocurrencyBySymbol(@Param('symbol') symbol: string) : object {
+    console.log(symbol);
+    const data = this.cryptocurrencyService.getMetadata(symbol);
+    return data;
   }
 
   @Post()
-  createCryptocurrency(@Body() cryptocurrencyDto: CreateCryptocurrencyDto): Promise<Cryptocurrency> {
+  createCryptocurrency(
+    @Body() cryptocurrencyDto: CreateCryptocurrencyDto
+  ): Promise<Cryptocurrency> {
     return this.cryptocurrencyService.create(cryptocurrencyDto);
   }
-}
+} 

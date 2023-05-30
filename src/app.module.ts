@@ -10,7 +10,9 @@ import { CryptocurrencyModule } from './cryptocurrencies/cryptocurrency.module';
 import { PortfolioService } from './portfolio/portfolio.service';
 import { PortfolioModule } from './portfolio/portfolio.module';
 import { Portfolio } from './portfolio/portfolio.entity';
-
+import { AuthModule } from './auth/auth.module';
+import { PortfolioAssetsModule } from './portfolio_assets/portfolio_assets.module';
+import { PortfolioAssets } from './portfolio_assets/portfolio_assets.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -19,12 +21,14 @@ import { Portfolio } from './portfolio/portfolio.entity';
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.POSTGRES_URL,
-      entities: [User, Cryptocurrency, Portfolio],
+      entities: [User, Cryptocurrency, Portfolio, PortfolioAssets],
       synchronize: true,
     }),
     UsersModule,
     CryptocurrencyModule,
     PortfolioModule,
+    AuthModule,
+    PortfolioAssetsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

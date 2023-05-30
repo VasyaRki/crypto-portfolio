@@ -1,24 +1,24 @@
 import { Module, forwardRef } from '@nestjs/common';
-import { PortfolioController } from './portfolio.controller';
-import { PortfolioService } from './portfolio.service';
+import { PortfolioAssetsService } from './portfolio_assets.service';
+import { PortfolioAssetsController } from './portfolio_assets.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Portfolio } from './portfolio.entity';
+import { PortfolioAssets } from './portfolio_assets.entity';
 import { AuthModule } from '../auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Portfolio]),
+    TypeOrmModule.forFeature([PortfolioAssets]),
     forwardRef(() => AuthModule),
   ],
   providers: [
-    PortfolioService,
+    PortfolioAssetsService,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
   ],
-  controllers: [PortfolioController],
+  controllers: [PortfolioAssetsController],
 })
-export class PortfolioModule {}
+export class PortfolioAssetsModule {}

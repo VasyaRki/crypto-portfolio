@@ -3,6 +3,7 @@ import {
   Repository,
   DeepPartial,
   FindOptionsWhere,
+  FindOptionsRelations,
 } from 'typeorm';
 
 @Injectable()
@@ -27,9 +28,13 @@ export class EntityService<Entity> {
     return result.affected > 0;
   }
 
-  async getOne(filter: FindOptionsWhere<Entity>): Promise<Entity> {
+  async getOne(
+    filter: FindOptionsWhere<Entity>,
+    relations?: any
+  ): Promise<Entity> {
     return this.repository.findOne({
       where: filter,
+      relations,
     });
   }
 

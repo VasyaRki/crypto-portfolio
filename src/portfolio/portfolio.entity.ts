@@ -4,15 +4,14 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
   OneToOne,
+  OneToMany,
 } from 'typeorm';
 import { User } from '../users/user.entity';
+import { PortfolioAssets } from '../portfolio_assets/portfolio_assets.entity';
 @Entity()
 export class Portfolio {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  authorId: number;
 
   @Column()
   value: number;
@@ -20,7 +19,10 @@ export class Portfolio {
   @Column()
   assets: number;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, (user) => user.portfolio)
   @JoinColumn()
-  author: User;
+  user: User;
+
+  @OneToMany(() => PortfolioAssets, portfolioAssets => portfolioAssets.portfolio)
+  portfolioAssets: PortfolioAssets[]
 }
