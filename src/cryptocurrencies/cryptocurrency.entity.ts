@@ -14,5 +14,4 @@ export class Cryptocurrency {
   @ApiProperty()
   @Column()
   symbol: string;
-
 }

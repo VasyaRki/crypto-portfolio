@@ -1,13 +1,8 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
   Param,
-  Patch,
   Post,
-  Query,
-  UseGuards,
 } from '@nestjs/common';
 import { PortfolioService } from './portfolio.service';
 import { ArgUser, UseToken } from '../decorators/auth.decorators';
@@ -30,7 +25,7 @@ export class PortfolioController {
   }
 
   @Get(':id')
-  getPortfolioByUserId(@Param() id: any) {
+  getPortfolioByUserId(@Param() id: any) : Promise<Portfolio> {
     return this.service.getOne({ user: id}, ['portfolioAssets'])
   }
 }

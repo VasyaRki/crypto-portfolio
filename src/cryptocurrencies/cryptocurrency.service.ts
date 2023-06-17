@@ -1,9 +1,7 @@
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cryptocurrency } from './cryptocurrency.entity';
-import { CreateCryptocurrencyDto } from './dto/create-cryptocurrency.dto';
-import { EntityService } from '../entities/entity.service';
+import { EntityService } from '../common/entity.service';
 
 import axios from 'axios';
 
@@ -20,7 +18,7 @@ export class CryptocurrencyService extends EntityService<Cryptocurrency> {
       'https://pro-api.coinmarketcap.com/v2/cryptocurrency/info',
       {
         headers: {
-          'X-CMC_PRO_API_KEY': 'ec7fcc01-494b-4eb7-b0a3-8dc2791cb79c',
+          'X-CMC_PRO_API_KEY': process.env.COINMARKETCAP,
         },
         params: {
           symbol: symbol,
@@ -29,7 +27,6 @@ export class CryptocurrencyService extends EntityService<Cryptocurrency> {
     );
     const metadata = response.then(res => res.data);
     const coinInfo = metadata.then(metadata => metadata.data);
-
     return coinInfo;
   }
 }

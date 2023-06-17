@@ -1,12 +1,10 @@
-import { Injectable } from '@nestjs/common';
 import {
   Repository,
   DeepPartial,
   FindOptionsWhere,
-  FindOptionsRelations,
 } from 'typeorm';
 
-@Injectable()
+
 export class EntityService<Entity> {
   constructor(protected readonly repository: Repository<Entity>) {
     this.repository = repository;

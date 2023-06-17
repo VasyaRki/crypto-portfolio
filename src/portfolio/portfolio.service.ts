@@ -1,4 +1,4 @@
-import { EntityService } from '../entities/entity.service';
+import { EntityService } from '../common/entity.service';
 import { Portfolio } from './portfolio.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

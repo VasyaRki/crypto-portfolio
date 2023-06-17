@@ -1,36 +1,29 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { CryptocurrencyService } from './cryptocurrency.service';
 import { Cryptocurrency } from './cryptocurrency.entity';
 import { CreateCryptocurrencyDto } from './dto/create-cryptocurrency.dto';
 
 @Controller('cryptocurrency')
 export class CryptocurrencyController {
-  constructor(private cryptocurrencyService: CryptocurrencyService) {}
+  constructor(private readonly cryptocurrencyService: CryptocurrencyService) {}
+
   @Get()
-  getCryptocurrencies(): Promise<Cryptocurrency[]> {
-    return this.cryptocurrencyService.getMany();
+  public async getCryptocurrencies(): Promise<Cryptocurrency[]> {
+    return await this.cryptocurrencyService.getMany();
   }
 
   @Get(':symbol')
-  getCryptocurrencyBySymbol(@Param('symbol') symbol: string) : object {
+  public getCryptocurrencyBySymbol(
+    @Param('symbol') symbol: string
+  ): Promise<object> {
     console.log(symbol);
-    const data = this.cryptocurrencyService.getMetadata(symbol);
-    return data;
+    return this.cryptocurrencyService.getMetadata(symbol);
   }
 
   @Post()
-  createCryptocurrency(
+  public async createCryptocurrency(
     @Body() cryptocurrencyDto: CreateCryptocurrencyDto
   ): Promise<Cryptocurrency> {
-    return this.cryptocurrencyService.create(cryptocurrencyDto);
+    return await this.cryptocurrencyService.create(cryptocurrencyDto);
   }
-} 
+}

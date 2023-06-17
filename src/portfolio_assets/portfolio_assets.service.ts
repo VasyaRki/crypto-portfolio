@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityService } from '../entities/entity.service';
+import { EntityService } from '../common/entity.service';
 import { Repository } from 'typeorm';
 import { PortfolioAssets } from './portfolio_assets.entity';
 
